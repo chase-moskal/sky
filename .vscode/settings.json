@@ -1,0 +1,7 @@
+{
+    "editor.renderWhitespace": "boundary",
+    "glsl-canvas.textures": {
+        "0": "./mooncolor_64.webp",
+        "1": "./moonnormal_64.webp",
+    }
+}
