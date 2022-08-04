@@ -40,9 +40,9 @@ void main(void) {
 	
 	mat4 tiltTransform = rotation3d(vec3(1.0, 0.0, 0.0), LONGITUDE);
 	vec3 sunDirection = (tiltTransform * orbitTransform * startingSunDirection).xyz;
-	vec3 orbitAxis2 = (tiltTransform * vec4(orbitAxis, 1.0)).xyz;
-	vec3 suncross = cross(sunDirection, orbitAxis2);
-	mat4 seasonalTransform = rotation3d(suncross, -offset);
+	vec3 tiltedOrbitAxis = (tiltTransform * vec4(orbitAxis, 1.0)).xyz;
+	vec3 sunCross = cross(sunDirection, tiltedOrbitAxis);
+	mat4 seasonalTransform = rotation3d(sunCross, -offset);
 
 	vec3 finalSunDirection = (seasonalTransform * vec4(sunDirection, 1.0)).xyz;
 
