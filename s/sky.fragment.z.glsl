@@ -28,10 +28,47 @@ void main(void) {
 	
 	vec3 skycolor = starfield + nebula;
 	
+	float suntime = mod(time, 20000.0) / 20000.0;
+	float sunclamp = suntime * PI2;
+	
+	//sun orbit
+	vec2 sunorbitalvector = vec2(0.0, 1.0);
+	float sunorbitalperiod = sunclamp;
+	vec3 sunorbitalaxis = vec3(0.0, 1.0, 1.0);
+	vec3 sunorbitalaxisbase = vec3(1.0, 0.0, 0.0);
+	vec2 sunorbitalperiodrotate2d = rotate2d(sunorbitalvector, sunorbitalperiod);
+
+	vec3 matrixY = sunorbitalaxis;
+	vec3 matrixZ = cross(matrixY, sunorbitalaxisbase);
+	vec3 matrixX = cross(matrixZ, matrixY);
+	vec3 matrixmix = (matrixX * sunorbitalperiodrotate2d.x) + (matrixZ * sunorbitalperiodrotate2d.y);
+	vec3 sundirection = normalize(matrixmix);
+	
+	
+	float sundot = dot(-direction, sundirection);
+	float sunacos = acos(sundot);
+	float sunlessthan = sunacos < 0.0047 ? 1.0 : 0.0;
+	vec3 suncolordot = vec3(sunlessthan);
+	
+	//gl_FragColor = vec4(suncolordot, 1.0);
+	
+	
+	
+	// float suntime = mod(time, 60000.0) / 60000.0;
+	// float sunclamp = clamp(suntime, -2.0, 2.0);
+	// vec3 sunposition = normalize(vec3(0.0, sunclamp, 1.0));
+	// float sundot = dot(vec3(-direction), vec3(sunposition));
+	// float sundotcos = acos(sundot);
+	// float sunlessthan = sundotcos < 0.0093 ? 1.0 : 0.0;
+	// vec3 suncolordot = vec3(sunlessthan);
+	
+
+
+
 	vec3 color = atmosphere(
         -direction,                     // normalized ray direction
         vec3(0,6372e3,0),               // ray origin
-        vec3(0.0, .2, -1.0),            // position of the sun
+        sundirection,                    // position of the sun
         22.0,                           // intensity of the sun
         6371e3,                         // radius of the planet in meters
         6471e3,                         // radius of the atmosphere in meters
@@ -45,7 +82,7 @@ void main(void) {
     // Apply exposure.
     color = 1.0 - exp(-1.0 * color);
 	
-	gl_FragColor = vec4(color, 1.0);
+	gl_FragColor = vec4(color + suncolordot, 1.0);
 
 }
 
