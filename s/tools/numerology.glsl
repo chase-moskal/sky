@@ -50,3 +50,7 @@ float triplanar(vec3 normal, vec3 samples){
 	float biplanar = mix(samples.x, samples.y, nyfactor);
 	return mix(biplanar, samples.z, nzfactor);
 }
+
+vec3 absY(vec3 vector){
+	return vec3(vector.x, abs(vector.y), vector.z);
+}

@@ -1,7 +1,11 @@
+#define PI 3.14159265359
 #define PI2 6.28318530718
+#define PIHALF 1.57079632679
+#define PIQUARTER 0.78539816339
+
 #define EARTH_ROTATION_PERIOD 240000.0
 #define EARTH_AXIAL_TILT 0.408407
 #define SEASON 0.25
 // #define LONGITUDE 1.5708 // arctic pole
-#define LONGITUDE 1.148866471 // arctic circle
-// #define LONGITUDE 0.0
+// #define LONGITUDE 1.148866471 // arctic circle
+#define LONGITUDE 0.0

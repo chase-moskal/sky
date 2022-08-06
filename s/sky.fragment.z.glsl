@@ -17,6 +17,7 @@ varying vec4 v_worldPosition;
 @import tools/easings.glsl;
 @import tools/heavens.glsl;
 @import tools/atmosphere.glsl;
+@import tools/scatter.glsl;
 
 void main(void) {
 
@@ -28,7 +29,7 @@ void main(void) {
 	
 	vec3 skycolor = starfield + nebula;
 	
-	float suntime = mod(time, 2000.0) / 2000.0;
+	float suntime = mod(time, 8000.0) / 8000.0;
 	float sunradians = suntime * PI2;
 	
 	vec3 orbitAxis = vec3(0.0, 0.0, 1.0);
@@ -67,6 +68,11 @@ void main(void) {
 	float sunlessthan = sunacos < 0.0047 ? 1.0 : 0.0;
 	vec3 suncolordot = vec3(sunlessthan);
 	
+	float pixelRadiansFromSun = sunacos;
+	float pixelRadiansFromHorizon = acos(dot(normalize(vec3(-direction.x, 0.0, -direction.z)), -direction));
+	float sunRadiansFromHorizon = acos(dot(normalize(vec3(finalSunDirection.x, 0.0, finalSunDirection.z)), finalSunDirection));
+	
+	gl_FragColor = vec4(sampleDaySky(pixelRadiansFromSun, pixelRadiansFromHorizon, sunRadiansFromHorizon), 1.0);
 	//gl_FragColor = vec4(suncolordot, 1.0);
 	
 	
@@ -82,24 +88,29 @@ void main(void) {
 
 
 
-	vec3 color = atmosphere(
-        -direction,                     // normalized ray direction
-        vec3(0,6372e3,0),               // ray origin
-        finalSunDirection,                    // position of the sun
-        22.0,                           // intensity of the sun
-        6371e3,                         // radius of the planet in meters
-        6471e3,                         // radius of the atmosphere in meters
-        vec3(5.5e-6, 13.0e-6, 22.4e-6), // Rayleigh scattering coefficient
-        21e-6,                          // Mie scattering coefficient
-        8e3,                            // Rayleigh scale height
-        1.2e3,                          // Mie scale height
-        0.758                           // Mie preferred scattering direction
-    );
-
-    // Apply exposure.
-    color = 1.0 - exp(-1.0 * color);
+	// vec3 color = atmosphere(
+    //     (-direction),                     // normalized ray direction
+    //     vec3(0,6372e3,0),               // ray origin
+    //     finalSunDirection,                    // position of the sun
+    //     22.0,                           // intensity of the sun
+    //     6371e3,                         // radius of the planet in meters
+    //     6471e3,                         // radius of the atmosphere in meters
+    //     vec3(5.5e-6, 13.0e-6, 22.4e-6), // Rayleigh scattering coefficient
+    //     21e-6,                          // Mie scattering coefficient
+    //     8e3,                            // Rayleigh scale height
+    //     1.2e3,                          // Mie scale height
+    //     0.758                           // Mie preferred scattering direction
+    // );
+	// float horizon = direction.y < -0.0 ? 0.0 : 1.0;
+    // // Apply exposure.
+    // color = 1.0 - exp(-1.0 * color);
 	
-	gl_FragColor = vec4(color + suncolordot + suncolordot2, 1.0);
+	// float horizon1 = direction.y < -0.0179 ? 1.0 : 0.0;
+	// vec3 horizon2 = mix(color, vec3(1.0, 1.0, 1.0), horizon1);
+	// // vec3 horizonfix = color * mix(horizon2, vec3(1.0), 1.06);
+	// vec3 horizonfix = color * mix(horizon2, vec3(1.0), 1.06);
+	// gl_FragColor = vec4(vec3(color), 1.0);
+	// gl_FragColor = vec4(vec3(color + suncolordot), 1.0);
 
 }
 

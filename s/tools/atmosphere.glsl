@@ -1,9 +1,9 @@
 
 // https://github.com/wwwtyro/glsl-atmosphere
 
-#define PI 3.141592
-#define iSteps 16
-#define jSteps 8
+//#define PI 3.141592
+#define iSteps 64
+#define jSteps 32
 
 vec2 rsi(vec3 r0, vec3 rd, float sr) {
     // ray-sphere intersection that assumes
