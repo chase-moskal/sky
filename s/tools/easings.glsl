@@ -1,3 +1,4 @@
+
 float easeExpo(float x){
 	if (x == 0.0){
 		return 0.0;
@@ -6,7 +7,7 @@ float easeExpo(float x){
 		if (x == 1.0){
 			return 1.0;
 		}
-		else  {
+		else {
 			if (x < 0.5){
 				return pow(2.0, (20.0 * x) - 10.0) / 2.0;
 			}

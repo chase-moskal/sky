@@ -1,7 +1,31 @@
 {
-    "editor.renderWhitespace": "boundary",
-    "glsl-canvas.textures": {
-        "0": "./mooncolor_64.webp",
-        "1": "./moonnormal_64.webp",
-    }
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+
+	"files.eol": "\n",
+	"files.encoding": "utf8",
+	"files.insertFinalNewline": true,
+
+	"files.exclude": {
+		"node_modules": true,
+		"package-lock.json": true,
+	},
+
+	"search.exclude": {
+		"**/node_modules": true,
+		"x/**": true,
+	},
+
+	"files.watcherExclude": {
+		"x/**": true,
+		"source-a*/**": true,
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/node_modules/*/**": true,
+	},
+
+	"[markdown]": {
+		"editor.tabSize": 2,
+		"editor.insertSpaces": true,
+	},
 }
