@@ -1,7 +1,7 @@
 
 float makeStarLayer(vec3 direction, float frequency, float intensity){
 	float threshold = 1.0 - intensity;
-	float noise = snoise(direction * frequency);
+	float noise = noise(direction * frequency);
 	if (noise < threshold){
 		return 0.0;
 	}
