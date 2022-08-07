@@ -1,5 +1,5 @@
 
-@import ./noise.glsl;
+@import noise.glsl;
 
 // clouds
 // Based on Morgan McGuire @morgan3d
