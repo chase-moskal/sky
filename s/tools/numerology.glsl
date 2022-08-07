@@ -1,4 +1,16 @@
 
+vec3 getViewDirectionToPixel() {
+	return -normalize(cameraPosition - v_worldPosition.xyz);
+}
+
+float getClocktime() {
+	return mod(time, EARTH_ROTATION_PERIOD) / EARTH_ROTATION_PERIOD;
+}
+
+float radiansBetween(vec3 a, vec3 b) {
+	return acos(dot(a, b));
+}
+
 vec2 rotate2d(vec2 v, float a) {
 	float s = sin(a);
 	float c = cos(a);
@@ -7,17 +19,20 @@ vec2 rotate2d(vec2 v, float a) {
 }
 
 mat4 rotation3d(vec3 axis, float angle) {
-  axis = normalize(axis);
-  float s = sin(angle);
-  float c = cos(angle);
-  float oc = 1.0 - c;
-
+	axis = normalize(axis);
+	float s = sin(angle);
+	float c = cos(angle);
+	float oc = 1.0 - c;
 	return mat4(
 		oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
 		oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
 		oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
 		0.0,                                0.0,                                0.0,                                1.0
 	);
+}
+
+vec3 applyTransform(mat4 transform, vec3 vector) {
+	return (transform * vec4(vector, 1.0)).xyz;
 }
 
 float remap(float point, vec2 inrange, vec2 outrange){

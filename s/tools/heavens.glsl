@@ -2,12 +2,9 @@
 float makeStarLayer(vec3 direction, float frequency, float intensity){
 	float threshold = 1.0 - intensity;
 	float noise = noise(direction * frequency);
-	if (noise < threshold){
-		return 0.0;
-	}
-	else {
-		return remap(noise, vec2(threshold, 1.0), vec2(0.0, 1.0));
-	}
+	return (noise < threshold)
+		? 0.0
+		: remap(noise, vec2(threshold, 1.0), vec2(0.0, 1.0));
 }
 
 vec3 makeStarField(vec3 direction, float twinkle){
@@ -54,4 +51,10 @@ vec3 makeNebula(vec3 direction){
 			FloatStop(1.0, 0.7)
 		))
 	);
+}
+
+vec3 sampleNightSky(vec3 view) {
+	vec3 starfield = makeStarField(view, 0.3);
+	vec3 nebula = makeNebula(view);
+	return starfield + nebula;
 }
