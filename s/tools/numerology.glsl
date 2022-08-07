@@ -50,23 +50,3 @@ vec3 remap3(vec3 point, vec2 inrange, vec2 outrange){
 	float z = remap(point.z, inrange, outrange);
 	return vec3(x, y, z);
 }
-
-float factorize(vec3 direction, vec3 axis){
-	float ness = dot(direction, axis);
-	return gradient(ness, FloatStop[3](
-		FloatStop(-1.0, 1.0),
-		FloatStop(0.0, 0.0),
-		FloatStop(1.0, 1.0)
-	));
-}
-
-float triplanar(vec3 normal, vec3 samples){
-	float nyfactor = factorize(normal, vec3(0.0, 1.0, 0.0));
-	float nzfactor = factorize(normal, vec3(0.0, 0.0, 1.0));
-	float biplanar = mix(samples.x, samples.y, nyfactor);
-	return mix(biplanar, samples.z, nzfactor);
-}
-
-vec3 absY(vec3 vector){
-	return vec3(vector.x, abs(vector.y), vector.z);
-}

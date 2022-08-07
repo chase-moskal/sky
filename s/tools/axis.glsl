@@ -21,11 +21,9 @@ vec3 drawBelowHorizon(vec3 direction) {
 }
 
 vec3 calculateSunBase(float clocktime) {
-	vec3 up = vec3(0.0, 1.0, 0.0);
-	vec3 east = vec3(1.0, 0.0, 0.0);
 	float seasonalInfluence = sin(SEASON * PI2);
 	float seasonalOffset = seasonalInfluence * EARTH_AXIAL_TILT;
-	return applyTransform(rotation3d(up, -seasonalOffset), east);
+	return applyTransform(rotation3d(UP, -seasonalOffset), EAST);
 }
 
 Firmament calculateFirmamentTransforms(vec3 direction, float clocktime) {

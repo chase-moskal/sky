@@ -11,6 +11,7 @@ varying vec3 v_position;
 varying vec4 v_worldPosition;
 
 @import tools/defines.glsl;
+@import tools/triplanar.glsl;
 @import tools/gradients.glsl;
 @import tools/numerology.glsl;
 @import tools/axis.glsl;
@@ -35,7 +36,7 @@ void main() {
 	vec3 nightSky = sampleNightSky(firmament.view);
 
 	vec3 belowHorizon = drawBelowHorizon(direction) * 0.1;
-	vec3 eastDebug = drawCircle(direction, 0.05, EAST) * vec3(1.0, 0.0, 0.0);
+	vec3 eastDebug = drawCircle(direction, 0.05, EAST) * RED;
 
 	vec3 composite = nightSky + eastDebug + sunDisk - belowHorizon;
 	gl_FragColor = vec4(composite, 1.0);
