@@ -39,9 +39,11 @@ void main() {
 
 	vec3 fullSky = compositeFullSky(skypoint, nightSky, daySky);
 
-	vec3 debugHorizon = drawBelowHorizon(direction) * 0.8;
+	vec3 debugSunDisk = drawCircle(direction, 0.05, sunVector) * RED;
+	vec3 debugHorizon = drawBelowHorizon(direction) * 0.1;
 	vec3 debugEastMarker = drawCircle(direction, 0.05, EAST) * GREEN;
 
+	// vec3 composite = nightSky + debugSunDisk - debugHorizon;
 	vec3 composite = fullSky - debugHorizon;
 	gl_FragColor = vec4(composite, 1.0);
 }

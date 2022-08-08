@@ -21,12 +21,12 @@
 #define UP vec3(0.0, 1.0, 0.0)
 #define DOWN vec3(0.0, -1.0, 0.0)
 
-#define SEASON 0.0 // spring
-// #define SEASON 0.25 // summer
+// #define SEASON 0.0 // spring
+#define SEASON 0.25 // summer
 // #define SEASON 0.50 // autumn
 // #define SEASON 0.75 // winter
 
 // #define LONGITUDE 1.5708 // arctic pole
 // #define LONGITUDE 1.148866471 // arctic circle
-#define LONGITUDE 0.0 // equator
-// #define LONGITUDE 0.6719518 // sacramento
+// #define LONGITUDE 0.0 // equator
+#define LONGITUDE 0.6719518 // sacramento
