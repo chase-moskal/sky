@@ -6,6 +6,7 @@
 
 #define SUN_RADIUS 0.0044
 
+// #define EARTH_ROTATION_PERIOD 3200000.0
 #define EARTH_ROTATION_PERIOD 32000.0
 #define EARTH_AXIAL_TILT 0.408407
 
@@ -29,4 +30,5 @@
 // #define LONGITUDE 1.5708 // arctic pole
 // #define LONGITUDE 1.148866471 // arctic circle
 // #define LONGITUDE 0.0 // equator
-#define LONGITUDE 0.6719518 // sacramento
+// #define LONGITUDE 0.6719518 // sacramento
+#define LONGITUDE 0.8447394 // vancouver

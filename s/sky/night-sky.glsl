@@ -19,18 +19,11 @@ vec3 makeStarField(vec3 direction, float twinkle){
 		whiteNoise(0.3, 3.0)
 	);
 	vec3 rawstars = vec3(
-		makeStarLayer(direction, 125.0, .12) 
-		+ makeStarLayer(direction, 150.0, .2)
+		makeStarLayer(direction, 50.0, .1)
+		+ makeStarLayer(direction, 100.0, .05)
 		- (colornoise * twinkle)
 	);
 	return clamp(rawstars, 0.0, 1.0);
-}
-
-vec3 computeSkyDirection(vec3 direction){
-	float skytime = mod(time, EARTH_ROTATION_PERIOD) / EARTH_ROTATION_PERIOD;
-	float skyradians = skytime * PI2;
-	mat4 skyrotate = rotation3d(vec3(0.0, 1.0, 0.0), skyradians);
-	return (skyrotate * vec4(direction, 1.0)).xyz;
 }
 
 vec3 makeNebula(vec3 direction){
@@ -59,7 +52,7 @@ vec3 makeNebula(vec3 direction){
 }
 
 vec3 sampleNightSky(vec3 view) {
-	vec3 starfield = makeStarField(view, 0.3);
-	vec3 nebula = makeNebula(view);
+	vec3 starfield = makeStarField(view, 0.15);
+	vec3 nebula = makeNebula(view) * 0.05;
 	return starfield + nebula;
 }

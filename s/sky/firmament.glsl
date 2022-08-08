@@ -16,10 +16,6 @@ Firmament calculateFirmamentTransforms(vec3 direction, float clocktime) {
 	mat4 viewTransform = swivelTransform * longitudeTransform;
 	mat4 domeTransform = inverse(viewTransform);
 
-	// mat4 reverseSwivelTransform = rotation3d(NORTH, -circle);
-	// mat4 reverseLongitudeTransform = rotation3d(EAST, -LONGITUDE);
-	// mat4 domeTransform = reverseSwivelTransform * reverseLongitudeTransform;
-
 	vec3 view = applyTransform(viewTransform, direction);
 
 	return Firmament(
