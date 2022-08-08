@@ -15,8 +15,10 @@ varying vec4 v_worldPosition;
 #import sky/firmament.glsl
 #import sky/sun.glsl
 #import sky/night-sky.glsl
+#import sky/day-sky.glsl
 
 #import tools/drawing.glsl
+#import tools/numerology.glsl
 
 void main() {
 	vec3 direction = getViewDirectionToPixel();
@@ -24,14 +26,19 @@ void main() {
 
 	Firmament firmament = calculateFirmamentTransforms(direction, clocktime);
 
-	vec3 sunVector = calculateSunBase(clocktime);
-	vec3 sunDisk = drawCircle(firmament.view, 0.03, sunVector);
+	vec3 sunBase = calculateSunBase(clocktime);
+	vec3 sunVector = applyTransform(firmament.domeTransform, sunBase);
+	vec3 sunDisk = drawCircle(direction, SUN_RADIUS, sunVector);
 
 	vec3 nightSky = sampleNightSky(firmament.view);
 
-	vec3 debugHorizon = drawBelowHorizon(direction) * 0.1;
-	vec3 debugEastMarker = drawCircle(direction, 0.05, EAST) * RED;
+	Skypoint skypoint = getSkypoint(direction, sunVector);
+	vec3 daySky = sampleDaySky(skypoint);
 
-	vec3 composite = nightSky + debugEastMarker + sunDisk - debugHorizon;
+	vec3 debugHorizon = drawBelowHorizon(direction) * 0.1;
+	vec3 debugEastMarker = drawCircle(direction, 0.05, EAST) * GREEN;
+
+	vec3 composite = daySky - debugHorizon;
+	// vec3 composite = nightSky + debugEastMarker + sunDisk - debugHorizon;
 	gl_FragColor = vec4(composite, 1.0);
 }

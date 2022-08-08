@@ -1,23 +1,54 @@
 
-struct FloatStop{
+struct FloatStop {
 	float position;
 	float content;
 };
 
-float gradient(float value, FloatStop[3] stops){
-	FloatStop leftstop = stops[0];
-	FloatStop rightstop = stops[2];
-	for(int i = 0; i < 3; i ++){
-		FloatStop currentstop = stops[i];
-		if(value > currentstop.position && currentstop.position > leftstop.position){
-			leftstop = currentstop;
-		}
-		if(value < currentstop.position && currentstop.position < rightstop.position){
-			rightstop = currentstop;
-		}
+struct ColorStop {
+	float position;
+	vec3 content;
+};
+
+float gradient(float value, FloatStop[3] stops) {
+	FloatStop left;
+	FloatStop right;
+	if (value < stops[1].position) {
+		left = stops[0];
+		right = stops[1];
 	}
-	float span = rightstop.position - leftstop.position;
-	float progress = value - leftstop.position;
+	else {
+		left = stops[1];
+		right = stops[2];
+	}
+	float span = right.position - left.position;
+	float progress = value - left.position;
 	float factor = progress / span;
-	return mix(leftstop.content, rightstop.content, factor);
+	return mix(left.content, right.content, factor);
 }
+
+vec3 gradient(float value, ColorStop[3] stops) {
+	ColorStop left;
+	ColorStop right;
+	if (value < stops[1].position) {
+		left = stops[0];
+		right = stops[1];
+	}
+	else {
+		left = stops[1];
+		right = stops[2];
+	}
+	float span = right.position - left.position;
+	float progress = value - left.position;
+	float factor = progress / span;
+	return mix(left.content, right.content, factor);
+}
+
+// vec3 colorGradient(float value, ColorStop[3] stops) {
+// 	bool inFirstRange = value < stops[1].position;
+// 	ColorStop left = inFirstRange ? stops[0] : stops[1];
+// 	ColorStop right = inFirstRange ? stops[1] : stops[2];
+// 	float span = right.position - left.position;
+// 	float progress = value - left.position;
+// 	float factor = progress / span;
+// 	return mix(left.content, right.content, factor);
+// }
