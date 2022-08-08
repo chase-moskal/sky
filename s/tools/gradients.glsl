@@ -42,13 +42,3 @@ vec3 gradient(float value, ColorStop[3] stops) {
 	float factor = progress / span;
 	return mix(left.content, right.content, factor);
 }
-
-// vec3 colorGradient(float value, ColorStop[3] stops) {
-// 	bool inFirstRange = value < stops[1].position;
-// 	ColorStop left = inFirstRange ? stops[0] : stops[1];
-// 	ColorStop right = inFirstRange ? stops[1] : stops[2];
-// 	float span = right.position - left.position;
-// 	float progress = value - left.position;
-// 	float factor = progress / span;
-// 	return mix(left.content, right.content, factor);
-// }

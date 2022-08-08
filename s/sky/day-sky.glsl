@@ -23,12 +23,12 @@ vec3 sampleNoon(Skypoint point) {
 		ColorStop(0.2, vec3(0.36, 0.72, 1.00)),
 		ColorStop(1.0, vec3(0.00, 0.56, 1.00))
 	));
-	float sunGlareBig = 0.8 * gradient(point.radiansFromSun, FloatStop[3](
+	float sunGlareBig = 0.7 * gradient(point.radiansFromSun, FloatStop[3](
 		FloatStop(0.0, 1.0),
 		FloatStop(1.5, 0.0),
 		FloatStop(PI, 0.0)
 	));
-	float sunGlareSmall = 0.5 * gradient(point.radiansFromSun, FloatStop[3](
+	float sunGlareSmall = 0.25 * gradient(point.radiansFromSun, FloatStop[3](
 		FloatStop(0.0, 1.0),
 		FloatStop(0.3, 0.0),
 		FloatStop(PI, 0.0)

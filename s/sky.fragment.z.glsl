@@ -16,8 +16,10 @@ varying vec4 v_worldPosition;
 #import sky/sun.glsl
 #import sky/night-sky.glsl
 #import sky/day-sky.glsl
+#import sky/composite-full-sky.glsl
 
 #import tools/drawing.glsl
+#import tools/gradients.glsl
 #import tools/numerology.glsl
 
 void main() {
@@ -35,10 +37,11 @@ void main() {
 	Skypoint skypoint = getSkypoint(direction, sunVector);
 	vec3 daySky = sampleDaySky(skypoint);
 
-	vec3 debugHorizon = drawBelowHorizon(direction) * 0.1;
+	vec3 fullSky = compositeFullSky(skypoint, nightSky, daySky);
+
+	vec3 debugHorizon = drawBelowHorizon(direction) * 0.8;
 	vec3 debugEastMarker = drawCircle(direction, 0.05, EAST) * GREEN;
 
-	vec3 composite = daySky - debugHorizon;
-	// vec3 composite = nightSky + debugEastMarker + sunDisk - debugHorizon;
+	vec3 composite = fullSky - debugHorizon;
 	gl_FragColor = vec4(composite, 1.0);
 }
