@@ -1,7 +1,7 @@
 
 #import numerology.glsl;
 
-vec3 drawCircle(vec3 direction, float radius, vec3 vector) {
+vec3 drawCircle(vec3 direction, vec3 vector, float radius) {
 	float between = radiansBetween(direction, vector);
 	return (between < radius)
 		? vec3(1.0)

@@ -1,10 +1,24 @@
 
 float radiansBetween(vec3 a, vec3 b) {
-	return acos(dot(a, b));
+	// return acos(dot(a, b));
+	return acos(
+		dot(normalize(vec4(a, 1.0)),
+		normalize(vec4(b, 1.0)))
+	);
 }
 
 float radiansFromHorizon(vec3 vector) {
-	return PIHALF - radiansBetween(UP, vector);
+	if (vector.y == 1.0) {
+		return PIHALF;
+	}
+	else if (vector.y == -1.0) {
+		return -PIHALF;
+	}
+	vec3 horizon = normalize(vec3(vector.x, 0.0, vector.z));
+	float between = radiansBetween(horizon, vector);
+	return vector.y >= 0.0
+		? between
+		: -between;
 }
 
 vec2 rotate2d(vec2 v, float a) {

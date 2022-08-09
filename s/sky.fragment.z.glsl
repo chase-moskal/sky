@@ -30,7 +30,6 @@ void main() {
 
 	vec3 sunBase = calculateSunBase(clocktime);
 	vec3 sunVector = applyTransform(firmament.domeTransform, sunBase);
-	vec3 sunDisk = drawCircle(direction, SUN_RADIUS, sunVector);
 
 	vec3 nightSky = sampleNightSky(firmament.view);
 
@@ -39,11 +38,9 @@ void main() {
 
 	vec3 fullSky = compositeFullSky(skypoint, nightSky, daySky);
 
-	vec3 debugSunDisk = drawCircle(direction, 0.05, sunVector) * RED;
 	vec3 debugHorizon = drawBelowHorizon(direction) * 0.1;
-	vec3 debugEastMarker = drawCircle(direction, 0.05, EAST) * GREEN;
+	vec3 debugEastMarker = drawCircle(direction, EAST, 0.05) * GREEN;
 
-	// vec3 composite = nightSky + debugSunDisk - debugHorizon;
 	vec3 composite = fullSky - debugHorizon;
 	gl_FragColor = vec4(composite, 1.0);
 }
